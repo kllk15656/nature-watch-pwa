@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 // Import Firestore functions for real-time updates
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-// Import your Firestore database instance
+// Import Firestore database 
 import { db } from "./firebase/firebaseConfig.js";
 
 // Import CSS for styling this dashboard
@@ -101,7 +101,8 @@ export default function Dashboard() {
               {/* View button */}
               <button
                 className="viewCellButton"
-                onClick={() => navigate(`/view-report/${item.id}`)}
+                onClick={() => navigate(`/view-report/${item.id}`, { state: item })}
+
               >
                 View
               </button>

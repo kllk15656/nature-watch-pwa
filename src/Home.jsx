@@ -2,7 +2,7 @@ import React from "react";
 import "./css/home.css"; // your styling file
 import bird from "./assets/bird.png"; // adjust path if needed
 
-// This is your Home screen component
+// Home screen component
 export default function Home() {
   return (
     // Main container for the home screen
@@ -23,7 +23,6 @@ export default function Home() {
       <button
         className="button"
         onClick={() => (window.location.href = "/dashboard")} 
-        // IMPORTANT: lowercase "dashboard"
       >
         Explore
       </button>

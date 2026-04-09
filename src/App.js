@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home"; 
 import Dashboard from "./Dashboard";
+import ViewReport from "./ViewReport"; 
 
 function App() {
   return (
@@ -11,6 +12,9 @@ function App() {
 
         {/* Dashboard page */}
         <Route path="/dashboard" element={<Dashboard />} />
+          
+          {/* View Report page */}
+        <Route path="/view-report/:id" element={<ViewReport />} />  
       </Routes>
     </BrowserRouter>
   );
