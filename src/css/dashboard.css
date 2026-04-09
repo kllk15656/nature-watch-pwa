@@ -1,0 +1,123 @@
+/* MAIN DASHBOARD CONTAINER */
+.dashboard-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  padding: 20px;
+  padding-bottom: 80px;
+}
+
+/*  HEADER BAR */
+.headerBar {
+  background-color: #934E24;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+
+.menuIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 20px;
+}
+
+.headerTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* NEW REPORT BUTTON*/
+.newReportButton {
+  background-color: #2E7D32;
+  padding: 15px;
+  border-radius: 10px;
+  width: 200px;
+  margin: 0 auto 25px auto;
+  color: #F8FAFC;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
+/*  SECTION TITLE*/
+.sectionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2e5e4e;
+}
+
+/* 
+   TABLE CONTAINER*/
+.tableContainer {
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* TABLE HEADER */
+.tableHeader {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.tableHeaderText {
+  font-weight: bold;
+  font-size: 16px;
+  width: 90px;
+  text-align: center;
+}
+
+/* TABLE ROWS */
+.tableRow {
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.tableCell {
+  font-size: 15px;
+  width: 90px;
+  text-align: center;
+}
+
+/* VIEW BUTTON */
+.viewCellButton {
+  background-color: #4caf50;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/*  BOTTOM NAVIGATION BAR*/
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+.navIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
