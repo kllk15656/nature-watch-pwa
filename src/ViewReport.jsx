@@ -41,7 +41,6 @@ export default function ViewReport() {
     title,
     category,
     description,
-    photoURL,
     lat,
     lng,
     createdAt,
@@ -133,13 +132,11 @@ export default function ViewReport() {
 
         {/* Photo preview */}
         <h3 className="label">Photo</h3>
-        {photoURL ? (
-          // Show the image if available
-          <img src={photoURL} className="photo" alt="report" />
-        ) : (
-          // Fallback text if no image exists
-          <p className="value">No photo available</p>
-        )}
+        <button className="viewPhotoButton"
+          onClick={() => navigate(`/view-photo/${id}`)}
+        >
+          View Photo
+        </button>
 
         {/* Location field */}
         <h3 className="label">Location</h3>

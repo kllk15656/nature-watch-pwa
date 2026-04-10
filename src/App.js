@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home"; 
 import Dashboard from "./Dashboard";
 import ViewReport from "./ViewReport"; 
+import CreateReport from "./CreateReport";
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
           
           {/* View Report page */}
-        <Route path="/view-report/:id" element={<ViewReport />} />  
+        <Route path="/view-report/:id" element={<ViewReport />} /> 
+        <Route path="/create-report" element={<CreateReport />} />
+ 
       </Routes>
     </BrowserRouter>
   );
