@@ -1,0 +1,81 @@
+/* Container for the whole page */
+.addPhoto-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.addPhoto-container h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Webcam preview */
+.camera-preview {
+  width: 100%;
+  max-width: 450px;
+  height: auto;
+  border-radius: 10px;
+  background: #000;
+  margin-bottom: 15px;
+}
+
+/* Captured photo preview */
+.photo-preview {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 10px;
+  margin-top: 15px;
+  border: 2px solid #4caf50;
+}
+
+/* Buttons */
+button {
+  display: block;
+  width: 100%;
+  max-width: 450px;
+  padding: 12px;
+  margin: 10px auto;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Start camera button */
+button:nth-of-type(1) {
+  background-color: #2196f3;
+  color: white;
+}
+
+/* Capture button */
+button:nth-of-type(2) {
+  background-color: #ff9800;
+  color: white;
+}
+
+/* Save button */
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+/* Button hover effect */
+button:hover {
+  opacity: 0.9;
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .addPhoto-container {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 15px;
+    padding: 10px;
+  }
+}

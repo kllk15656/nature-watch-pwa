@@ -1,5 +1,5 @@
-/* MAIN CONTAINER*/
-.create-container {
+/* MAIN CONTAINER */
+.view-container {
   min-height: 100vh;
   background-color: #e8f5e9;
   padding-bottom: 80px;
@@ -7,7 +7,7 @@
 
 
 
-/* HEADER BAR*/
+/* HEADER BAR */
 .headerBar {
   display: flex;
   align-items: center;
@@ -31,7 +31,7 @@
 
 
 
-/*  CONTENT AREA*/
+/* CONTENT AREA */
 .content {
   padding: 20px;
 }
@@ -44,148 +44,47 @@
   color: #2e5e4e;
 }
 
-.input {
+/* INPUT FIELDS (styled like .value boxes) */
+.inputField {
   width: 100%;
-  padding: 12px;
-  border: 1px solid #c8e6c9;
-  border-radius: 8px;
-  background-color: #ffffff;
-  margin-bottom: 10px;
   font-size: 16px;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #c8e6c9;
+  margin-bottom: 5px;
 }
 
-.textarea {
-  width: 100%;
+textarea.inputField {
   height: 120px;
-  padding: 12px;
-  border: 1px solid #c8e6c9;
-  border-radius: 8px;
-  background-color: #ffffff;
-  margin-bottom: 10px;
-  font-size: 16px;
   resize: none;
 }
 
-.locationText {
-  font-size: 15px;
-  color: #2e5e4e;
-  margin-bottom: 10px;
-}
 
 
-
-/* CATEGORY DROPDOWN BUTTON */
-.dropdownButton {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #c8e6c9;
-  border-radius: 8px;
-  background-color: #ffffff;
-  font-size: 16px;
-  text-align: left;
-  cursor: pointer;
-  margin-bottom: 10px;
-  color: #2e5e4e;
-}
-
-
-
-/* ACTION BUTTONS*/
+/* ACTION BUTTONS (same style as ViewReport buttons) */
 .actionButton {
   background-color: #53cae7;
-  padding: 12px 20px;
+  padding: 12px 25px;
   border-radius: 10px;
   border: none;
   color: white;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 10px;
-  width: 200px;
-  align-self: center;
-  display: block;
+  width: 100%;
+  margin-top: 15px;
 }
 
 .saveButton {
-  background-color: #2e7d32;
-  padding: 15px;
+  background-color: #2E7D32;
+  padding: 12px 25px;
   border-radius: 10px;
   border: none;
   color: white;
   font-weight: 700;
   cursor: pointer;
-  margin: 20px auto;
-  width: 200px;
-  display: block;
-}
-
-
-
-/* PHOTO PREVIEW */
-.photoPreview {
   width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-top: 10px;
-  background-color: #ddd;
-}
-
-
-
-/* CATEGORY MODAL*/
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-
-.modalBox {
-  width: 100%;
-  max-width: 350px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.modalTitle {
-  font-size: 18px;
-  font-weight: 700;
-  color: #2e5e4e;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.modalItem {
-  width: 100%;
-  padding: 12px;
-  border-bottom: 1px solid #eee;
-  background-color: white;
-  font-size: 16px;
-  color: #2e5e4e;
-  cursor: pointer;
-  text-align: center;
-}
-
-.modalItem:hover {
-  background-color: #f1f8f2;
-}
-
-.modalCancel {
-  margin-top: 15px;
-  padding: 12px;
-  background-color: #d9534f;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: center;
+  margin-top: 20px;
 }
 
 

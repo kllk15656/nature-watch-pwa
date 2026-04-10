@@ -31,18 +31,17 @@ export default function ViewReport() {
   const { id } = useParams();
 
   // Retrieve additional data passed through navigation state
-  const location = useLocation();
+  const routeLocation = useLocation();   // <-- FIXED: renamed to avoid conflict
 
   // Extract the report object (title, category, etc.)
-  const report = location.state || {};
+  const report = routeLocation.state || {};   // <-- FIXED
 
   // Destructure all fields from the report object
   const {
     title,
     category,
     description,
-    lat,
-    lng,
+    location,     // <-- FIXED: now correctly refers to Firestore location object
     createdAt,
   } = report;
 
@@ -132,17 +131,23 @@ export default function ViewReport() {
 
         {/* Photo preview */}
         <h3 className="label">Photo</h3>
-        <button className="viewPhotoButton"
-          onClick={() => navigate(`/view-photo/${id}`)}
-        >
-          View Photo
-        </button>
+        {report.hasPhoto ? (
+          <button 
+              className="viewPhotoButton"
+              onClick={() => navigate(`/view-photo/${id}`)}
+            >
+            View Photo
+          </button>
+        ) : (
+            <p className="value">No photo added yet.</p>
+        )}
+
 
         {/* Location field */}
         <h3 className="label">Location</h3>
         <p className="value">
-          {lat && lng
-            ? `${Number(lat).toFixed(5)}, ${Number(lng).toFixed(5)}`
+          {location?.lat && location?.lng
+            ? `${Number(location.lat).toFixed(5)}, ${Number(location.lng).toFixed(5)}`
             : "No location recorded"}
         </p>
 

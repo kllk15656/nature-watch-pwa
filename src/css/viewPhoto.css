@@ -1,0 +1,22 @@
+.viewPhoto-container {
+  text-align: center;
+  padding: 20px;
+}
+
+.viewPhoto-image {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  border: 2px solid #4caf50;
+}
+
+.back-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
