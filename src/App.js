@@ -5,7 +5,7 @@ import ViewReport from "./ViewReport";
 import CreateReport from "./CreateReport";
 import ViewPhoto from "./ViewPhoto";
 import AddPhoto from "./AddPhoto";
-
+import EditReport from "./EditReport";
 
 function App() {
   return (
@@ -17,13 +17,14 @@ function App() {
         {/* Dashboard page */}
         <Route path="/dashboard" element={<Dashboard />} />
           
-          {/* View and create Report page */}
+        {/* View, create, edit Report */}
         <Route path="/view-report/:id" element={<ViewReport />} /> 
         <Route path="/create-report" element={<CreateReport />} />
-        {/* View  and add photo */}
-        <Route path="/view-photo/:id" element={<ViewPhoto />} />
-        <Route path="/add-photo/:id" element={<AddPhoto />} /> 
+        <Route path="/edit-report/:id" element={<EditReport />} /> 
 
+        {/* View and add photo */}
+        <Route path="/view-photo/:id" element={<ViewPhoto />} />
+        <Route path="/add-photo/:id" element={<AddPhoto />} />
       </Routes>
     </BrowserRouter>
   );

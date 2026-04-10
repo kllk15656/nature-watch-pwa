@@ -100,7 +100,7 @@ export default function Dashboard() {
 
               {/* View button */}
               <button
-                className="viewCellButton"
+                className="viewButton"
                 onClick={() => navigate(`/view-report/${item.id}`, { state: item })}
 
               >
