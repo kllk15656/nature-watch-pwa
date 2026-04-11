@@ -1,6 +1,11 @@
 import { initializeApp } from "firebase/app"; // Connects your React Native app to Firebase
 
-import { getFirestore } from "firebase/firestore"; // Firestore = database for storing your reports
+//  Firestore offline mode 
+import {
+  initializeFirestore,
+  persistentLocalCache,
+  persistentMultipleTabManager
+} from "firebase/firestore";
 
 import { getStorage } from "firebase/storage"; // Storage = where your wildlife photos will be uploaded
 
@@ -17,5 +22,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig); // connects React native to firebaseproject
 
-export const db = getFirestore(app); // read/write widldlife reports in firestore
-export const storage = getStorage(app); // uploads and downsload wildlife photos
+
+
+// read/write widldlife reports in firestore and supports offline
+export const db = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager() // allows offline cache across tabs
+  })
+});
+
+
+// uploads and download wildlife photos
+export const storage = getStorage(app); // (your comment kept exactly the same)

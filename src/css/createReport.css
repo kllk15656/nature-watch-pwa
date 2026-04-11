@@ -37,11 +37,13 @@
 }
 
 .label {
-  font-size: 16px;
+   font-size: 16px !important;
   font-weight: 600;
   margin-top: 15px;
   margin-bottom: 5px;
-  color: #2e5e4e;
+  color: #050706 !important;
+   text-shadow: 0 2px 2px #928984 ;
+   text-align: center;
 }
 
 /* INPUT FIELDS (styled like .value boxes) */
@@ -53,6 +55,8 @@
   border-radius: 8px;
   border: 1px solid #c8e6c9;
   margin-bottom: 5px;
+  border: 1px solid #c8e6c9;
+  box-shadow: 0 2px 3px #928984 ;
 }
 
 textarea.inputField {
@@ -73,10 +77,11 @@ textarea.inputField {
   cursor: pointer;
   width: 100%;
   margin-top: 15px;
+  width: 200px !important;
+  box-shadow: 0 8px 9px #928984 ;
 }
-
 .saveButton {
-  background-color: #2E7D32;
+  background-color: #2E7D32 !important;
   padding: 12px 25px;
   border-radius: 10px;
   border: none;
@@ -85,6 +90,8 @@ textarea.inputField {
   cursor: pointer;
   width: 100%;
   margin-top: 20px;
+  box-shadow: 0 2px 3px #928984 ;
+  width: 160px !important;
 }
 
 

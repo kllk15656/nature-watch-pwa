@@ -1,0 +1,110 @@
+/* MAIN CONTAINER */
+.view-container {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  padding-bottom: 80px;
+}
+
+/* HEADER BAR */
+.headerBar {
+  background-color: #934E24;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  padding: 0 15px;
+  margin-bottom: 20px;
+}
+
+.headerTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+/* MAIN CONTENT BOX */
+.content {
+  background-color: #ffffff;
+  margin: 0 15px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+}
+
+/* SECTION TITLE */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #2e5e4e;
+}
+
+/* VALUE TEXT */
+.value {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* GREEN ACTION BUTTON */
+.actionButton {
+  background-color: #2E7D32;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin: 15px 0;
+}
+
+.actionButton:hover {
+  background-color: #256628;
+}
+
+/* LABELS */
+.label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  color: #2e5e4e;
+}
+
+/* SYNC LOG BOX */
+.syncLogBox {
+  background-color: #F1F5F9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.syncLogBox p {
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+/* BOTTOM NAVIGATION BAR */
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+
+.navIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}

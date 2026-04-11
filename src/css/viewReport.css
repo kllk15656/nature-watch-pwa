@@ -37,11 +37,13 @@
 }
 
 .label {
-  font-size: 16px;
+  font-size: 16px !important;
   font-weight: 600;
   margin-top: 15px;
   margin-bottom: 5px;
-  color: #2e5e4e;
+  color: #050706 !important;
+   text-shadow: 0 2px 2px #928984 ;
+   text-align: center;
 }
 
 .value {
@@ -50,6 +52,7 @@
   padding: 10px;
   border-radius: 8px;
   border: 1px solid #c8e6c9;
+  box-shadow: 0 2px 3px #928984 ;
 }
 
 
@@ -62,6 +65,7 @@
   margin-top: 5px;
   object-fit: cover;
   background-color: #ddd;
+  
 }
 
 
@@ -72,16 +76,19 @@
   justify-content: space-around;
   margin-top: 20px;
   margin-bottom: 40px;
+  
 }
 
 .editButton {
-  background-color: #fbc02d;
+  background-color: #fbc02d !important;
   padding: 12px 25px;
   border-radius: 10px;
   border: none;
   color: white;
   font-weight: 700;
   cursor: pointer;
+  width: 120px !important;
+  box-shadow: 0 8px 9px #928984 ;
 }
 
 .deleteButton {
@@ -92,6 +99,14 @@
   color: white;
   font-weight: 700;
   cursor: pointer;
+   width: 120px !important;
+   box-shadow: 0 8px 9px #928984 ;
+}
+.viewPhotoButton{
+  box-shadow: 0 8px 9px #928984 ;
+  width: 160px !important;
+  padding: 12px 25px;
+  border-radius: 10px;
 }
 
 

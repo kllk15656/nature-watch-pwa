@@ -16,9 +16,7 @@ import "./css/viewReport.css";
 // Import icons for UI
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
-import MapIcon from "./assets/map.png";
 import SettingsIcon from "./assets/settings.png";
-import SyncIcon from "./assets/sync.png";
 
 
 // VIEW REPORT COMPONENT
@@ -180,21 +178,7 @@ export default function ViewReport() {
           onClick={() => navigate("/")}
         />
 
-        {/* Map button */}
-        <img
-          src={MapIcon}
-          className="navIcon"
-          alt="map"
-          onClick={() => navigate("/map")}
-        />
-
-        {/* Sync button */}
-        <img
-          src={SyncIcon}
-          className="navIcon"
-          alt="sync"
-          onClick={() => navigate("/sync")}
-        />
+        
 
         {/* Settings button */}
         <img

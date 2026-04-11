@@ -1,20 +1,21 @@
 /* MAIN DASHBOARD CONTAINER */
 .dashboard-container {
   min-height: 100vh;
-  background-color: #F8FAFC;
-  padding: 20px;
+  background-color: #e8f5e9;
   padding-bottom: 80px;
 }
 
 /* HEADER BAR */
 .headerBar {
-  background-color: #934E24;
+  background-color: #934E24 !important;
   height: 60px;
   display: flex;
   align-items: center;
-  padding: 0 15px;
+  padding: 0 10px;
   margin-bottom: 20px;
   position: relative !important; /* add this */
+  box-shadow: 0 8px 9px #928984 ;
+ 
 }
 
 
@@ -27,7 +28,7 @@
 .headerTitle {
   font-size: 22px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   position: absolute;      /* center trick */
   left: 50%;
   transform: translateX(-50%);
@@ -47,14 +48,16 @@
   border: none;
   cursor: pointer;
   display: block;
+  box-shadow: 0 8px 9px #928984 ;
 }
 
 /* SECTION TITLE */
 .sectionTitle {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #2e5e4e;
+  color: #0e0f0f;
+  text-align: center;
 }
 
 /* TABLE CONTAINER */
@@ -64,6 +67,7 @@
   border-radius: 10px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
+  box-shadow: 0 8px 9px #928984 ;
 }
 
 /* TABLE HEADER */
@@ -106,6 +110,7 @@
 .tableCell:nth-child(5) {
   width: 9%; /* View */
   text-align: right;
+  
 }
 
 /* TABLE ROWS */
@@ -153,10 +158,12 @@
   justify-content: space-around;
   align-items: center;
   border-top: 1px solid #ccc;
+  
 }
 
 .navIcon {
   width: 28px;
   height: 28px;
   cursor: pointer;
+  
 }

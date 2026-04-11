@@ -25,9 +25,12 @@ function App() {
         {/* View and add photo */}
         <Route path="/view-photo/:id" element={<ViewPhoto />} />
         <Route path="/add-photo/:id" element={<AddPhoto />} />
+
+        {/* sync page */}
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+

@@ -12,10 +12,7 @@ import "./css/dashboard.css";
 
 // Import icons (React Web uses normal <img>, not Image from RN)
 import HomeIcon from "./assets/home.png";
-import MapIcon from "./assets/map.png";
-import MenuIcon from "./assets/menu.png";
 import SettingsIcon from "./assets/settings.png";
-import SyncIcon from "./assets/sync.png";
 
 // Import navigation from React Router
 import { useNavigate } from "react-router-dom";
@@ -56,7 +53,6 @@ export default function Dashboard() {
 
       {/* Header bar */}
       <div className="headerBar">
-        <img src={MenuIcon} className="menuIcon" alt="menu" />
         <h1 className="headerTitle">Nature Watch</h1>
       </div>
 
@@ -119,25 +115,8 @@ export default function Dashboard() {
           src={HomeIcon}
           className="navIcon"
           alt="home"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         />
-
-        {/* Map button */}
-        <img
-          src={MapIcon}
-          className="navIcon"
-          alt="map"
-          onClick={() => navigate("/map")}
-        />
-
-        {/* Sync button */}
-        <img
-          src={SyncIcon}
-          className="navIcon"
-          alt="sync"
-          onClick={() => navigate("/sync")}
-        />
-
         {/* Settings button */}
         <img
           src={SettingsIcon}

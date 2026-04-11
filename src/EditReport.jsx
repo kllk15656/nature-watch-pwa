@@ -14,9 +14,7 @@ import "./css/createReport.css";
 //Import icons for  UI
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
-import MapIcon from "./assets/map.png";
 import SettingsIcon from "./assets/settings.png";
-import SyncIcon from "./assets/sync.png";
 
 export default function EditReport() {
 
@@ -146,22 +144,9 @@ export default function EditReport() {
           src={HomeIcon}
           className="navIcon"
           alt="home"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         />
-
-        <img
-          src={MapIcon}
-          className="navIcon"
-          alt="map"
-          onClick={() => navigate("/map")}
-        />
-
-        <img
-          src={SyncIcon}
-          className="navIcon"
-          alt="sync"
-          onClick={() => navigate("/sync")}
-        />
+        
 
         <img
           src={SettingsIcon}
