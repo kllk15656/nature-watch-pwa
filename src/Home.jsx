@@ -1,32 +1,29 @@
 import React from "react";
-import "./css/home.css"; // your styling file
-import bird from "./assets/bird.png"; 
+import "./css/home.css";
+import bird from "./assets/bird.png";
+import { useNavigate } from "react-router-dom";
 
-
-// Home screen component
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
-    // Main container for the home screen
     <div className="home-container">
+      <div className="home-content">
+        <h1 className="title">Welcome to Nature Watch</h1>
 
-  <div className="home-content">
-    <h1 className="title">Welcome to Nature Watch</h1>
+        <div className="headerWrapper">
+          <img src={bird} className="headerImage" alt="bird" />
+        </div>
 
-    <div className="headerWrapper">
-      <img src={bird} className="headerImage" alt="bird" />
+        <p className="subTitle">Discover the wildlife around you</p>
+
+        <button
+          className="button"
+          onClick={() => navigate("/dashboard")}
+        >
+          Explore
+        </button>
+      </div>
     </div>
-
-    <p className="subTitle">Discover the wildlife around you</p>
-
-    <button
-      className="button"
-      onClick={() => (window.location.href = "/dashboard")}
-    >
-      Explore
-    </button>
-  </div>
-
-</div>
-
   );
 }
