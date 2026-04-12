@@ -1,0 +1,135 @@
+/* Main container */
+.settings-container {
+  padding: 1px;
+  padding-bottom: 80px; /* space for bottom nav */
+  background: #f2f5f2;  /* same soft background as Settings */
+  min-height: 100vh;
+}
+
+/* Header bar reused style (same class name as dashboard) */
+.headerBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 0;
+  background-color: #2f7a4f;
+}
+
+.headerTitle {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* Settings header */
+.settings-header {
+  margin-top: 16px;
+}
+
+.settings-title {
+  margin: 0;
+  font-size: 22px;
+  text-align: center;
+
+}
+
+.settings-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #666;
+    text-align: center;
+
+}
+
+/* Sections */
+.settings-section {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f5f7f5;
+  text-align: center;
+}
+
+.settings-section-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Fields */
+.settings-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.settings-label {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.settings-input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* Buttons */
+.settings-button {
+  margin-top: 4px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2f7a4f;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  width: 120px !important;
+  box-shadow: 0 2px 3px #928984 ;
+}
+
+.settings-button.danger {
+  background-color: #b33a3a;
+}
+
+/* Text */
+.settings-text {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.settings-note {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* Bottom nav (reuse style from dashboard if you already have it) */
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navIcon {
+  width: 28px;
+  height: 28px;
+}
+/* Back icon inside header */
+.backIcon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 16px;        /* keeps it on the left side */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

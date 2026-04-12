@@ -1,5 +1,5 @@
 // Import React and use State 
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 
 //firestore functions for saving a report
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -28,7 +28,16 @@ export default function CreateReport() {
   // Location stored as lat/lng
   const [location, setLocation] = useState({ lat: null, lng: null });
 
-  // get user location
+  const [username, setUsername] = useState(""); // stores username from localStorage
+  
+  useEffect(() => {
+    const savedName = localStorage.getItem("nw_username");
+    if (savedName) setUsername(savedName);
+  }, []);
+
+  
+  
+    // get user location
   async function getUserLocation() {
     // check if browser supports geolocation
     if (!navigator.geolocation) {
@@ -66,6 +75,7 @@ export default function CreateReport() {
         category,
         description,
         location,
+        username,
         hasPhoto: false, // update later on
         createdAt: serverTimestamp(),
       });

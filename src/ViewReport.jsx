@@ -17,6 +17,7 @@ import "./css/viewReport.css";
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
+import ProfileIcon from "./assets/profile.png"; 
 
 
 // VIEW REPORT COMPONENT
@@ -29,18 +30,19 @@ export default function ViewReport() {
   const { id } = useParams();
 
   // Retrieve additional data passed through navigation state
-  const routeLocation = useLocation();   // <-- FIXED: renamed to avoid conflict
+  const routeLocation = useLocation();   
 
   // Extract the report object (title, category, etc.)
-  const report = routeLocation.state || {};   // <-- FIXED
+  const report = routeLocation.state || {};   
 
   // Destructure all fields from the report object
   const {
     title,
     category,
     description,
-    location,     // <-- FIXED: now correctly refers to Firestore location object
+    location,    
     createdAt,
+    username
   } = report;
 
 
@@ -117,11 +119,15 @@ export default function ViewReport() {
         <h3 className="label">Category</h3>
         <p className="value">{category}</p>
 
+        {/* Report created bt */}
+        <h3 className="label">Report Owner</h3>
+        <p className="value">{username || "Unknown"}</p>
+
         {/* Date field */}
         <h3 className="label">Date</h3>
         <p className="value">
-          {createdAt ? new Date(createdAt).toLocaleString() : "Unknown"}
-        </p>
+        {createdAt?.seconds? new Date(createdAt.seconds * 1000).toLocaleString()
+        : "Unknown"}</p>
 
         {/* Description field */}
         <h3 className="label">Description</h3>
@@ -176,6 +182,12 @@ export default function ViewReport() {
           className="navIcon"
           alt="home"
           onClick={() => navigate("/")}
+        />
+        <img
+          src={ProfileIcon}
+          className="navIcon"
+          alt="profile"
+          onClick={() => navigate("/profile")}
         />
 
         

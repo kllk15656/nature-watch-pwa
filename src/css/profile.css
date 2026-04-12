@@ -1,0 +1,212 @@
+/* MAIN CONTAINER */
+.profile-container {
+  padding: 1px;
+  padding-bottom: 80px; /* space for bottom nav */
+  background: #f2f5f2;  /* same soft background as Settings */
+  min-height: 100vh;
+}
+
+/* HEADER BAR (same as Settings + Dashboard) */
+.headerBar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2f7a4f; /* Nature Watch green */
+  padding: 12px 0;
+}
+
+.headerTitle {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* BACK BUTTON */
+.backIcon {
+  width: 28px;
+  height: 28px;
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* SECTION CARD (matches Settings sections) */
+.profile-section {
+  background: #ffffff;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+/* SECTION TITLE */
+.profile-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #121312;
+    text-align: center !important;
+
+}
+
+/* PROFILE PHOTO AREA */
+.profile-photo-box {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  object-fit: cover;
+  border: 3px solid #2f7a4f;
+}
+
+.profile-photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 60px;
+  background: #d9e6d9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2f7a4f;
+  font-size: 14px;
+  border: 2px dashed #2f7a4f;
+}
+/* UPLOAD INPUT (profile picture upload) */
+.profile-upload-input {
+  display: none;
+}
+/* Custom upload button */
+.uploadButton {
+  display: inline-block;
+  background-color: #2f7a4f;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px auto 0;
+  width: fit-content;
+  transition: background 0.2s ease;
+}
+
+.uploadButton:hover {
+  background-color: #25633f;
+}
+.removePhotoButton {
+  display: block;
+  background-color: #b33a3a; /* soft red */
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  margin: 10px auto 0;
+  width: fit-content;
+  transition: background 0.2s ease;
+}
+
+.removePhotoButton:hover {
+  background-color: #8f2f2f;
+}
+
+
+
+.profile-username {
+  text-align: center;
+}
+
+
+
+/* USERNAME TEXT */
+.profile-username {
+  font-size: 16px;
+  margin-bottom: 6px;
+}
+
+.profile-note {
+  font-size: 12px;
+  color: #777;
+  text-align: center;
+}
+
+/* MY REPORTS LIST */
+.profile-report-list {
+  margin-top: 8px;
+  
+}
+
+/* Each report row */
+.profile-report-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e3e7e3;
+  
+}
+
+/* Report title text */
+.profile-report-item span {
+  font-size: 16px;
+  color: #2f3e2f;
+}
+
+/* Empty state */
+.profile-empty {
+  font-size: 14px;
+  color: #777;
+  padding: 8px 0;
+}
+.profile-report-item span {
+  flex: 1;                 /* takes equal space */
+  font-size: 16px;
+  color: #2f3e2f;
+}
+
+
+/* VIEW BUTTON — matches your app buttons */
+.viewButton {
+  background-color: #2f7a4f !important;     /* Nature Watch green */
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.viewButton:hover {
+  background-color: #25633f;     /* darker hover */
+}
+
+
+/* BOTTOM NAV (same as Settings) */
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navIcon {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}

@@ -15,6 +15,7 @@ import "./css/createReport.css";
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
+import ProfileIcon from "./assets/profile.png"; 
 
 export default function EditReport() {
 
@@ -24,13 +25,15 @@ export default function EditReport() {
   // Get the report passed from ViewReport
   const routeLocation = useLocation();
   const report = routeLocation.state || {};
+  const username = report.username || "";
+  
 
   // Pre-fill form fields
   const [title, setTitle] = useState(report.title || "");
   const [category, setCategory] = useState(report.category || "");
   const [description, setDescription] = useState(report.description || "");
   const [location] = useState(report.location || { lat: null, lng: null });
-
+  
   // Save updated report
   async function handleUpdate(e) {
     e.preventDefault();
@@ -47,13 +50,14 @@ export default function EditReport() {
         category,
         description,
         location,
+        username,
       });
 
       alert("Report updated!");
 
       // Navigate back to ViewReport with updated data
       navigate(`/view-report/${id}`, {
-        state: { ...report, title, category, description },
+        state: { ...report, title, category, description, username },
       });
 
     } catch (error) {
@@ -145,6 +149,12 @@ export default function EditReport() {
           className="navIcon"
           alt="home"
           onClick={() => navigate("/dashboard")}
+        />
+        <img
+          src={ProfileIcon}
+          className="navIcon"
+          alt="profile"
+          onClick={() => navigate("/profile")}
         />
         
 

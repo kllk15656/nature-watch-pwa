@@ -13,6 +13,7 @@ import "./css/dashboard.css";
 // Import icons (React Web uses normal <img>, not Image from RN)
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
+import ProfileIcon from "./assets/profile.png"; 
 
 // Import navigation from React Router
 import { useNavigate } from "react-router-dom";
@@ -107,17 +108,25 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Bottom navigation bar */}
+      {/* BOTTOM NAVIGATION BAR */}
       <div className="bottomNav">
-
-        {/* Home button */}
+        {/* Home icon - go to dashboard */}
         <img
           src={HomeIcon}
           className="navIcon"
           alt="home"
           onClick={() => navigate("/dashboard")}
         />
-        {/* Settings button */}
+        <img
+          src={ProfileIcon}
+          className="navIcon"
+          alt="profile"
+          onClick={() => navigate("/profile")}
+        />
+
+       
+
+        {/* Settings icon - stay on this page */}
         <img
           src={SettingsIcon}
           className="navIcon"

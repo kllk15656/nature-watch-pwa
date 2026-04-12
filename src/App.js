@@ -6,6 +6,8 @@ import CreateReport from "./CreateReport";
 import ViewPhoto from "./ViewPhoto";
 import AddPhoto from "./AddPhoto";
 import EditReport from "./EditReport";
+import Settings from "./Settings";
+import Profile from "./Profile";  
 
 function App() {
   return (
@@ -26,7 +28,9 @@ function App() {
         <Route path="/view-photo/:id" element={<ViewPhoto />} />
         <Route path="/add-photo/:id" element={<AddPhoto />} />
 
-        {/* sync page */}
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/settings" element={<Settings />} />
+
       </Routes>
     </BrowserRouter>
   );

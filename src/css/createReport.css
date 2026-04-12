@@ -1,8 +1,9 @@
 /* MAIN CONTAINER */
 .view-container {
+  padding: 1px;
+  padding-bottom: 80px; /* space for bottom nav */
+  background: #f2f5f2;  /* same soft background as Settings */
   min-height: 100vh;
-  background-color: #e8f5e9;
-  padding-bottom: 80px;
 }
 
 

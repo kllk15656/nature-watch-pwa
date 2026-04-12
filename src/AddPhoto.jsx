@@ -61,6 +61,17 @@ export default function AddPhoto(){
         setPhoto(imgData);
 
     }
+    // upload a photo from device
+      function handleFileUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPhoto(reader.result); // base64 string
+          };
+        reader.readAsDataURL(file);
+      }
+
     async function handleSave() {
         if (!photo) return alert("Take a photo first");
         try {
@@ -98,6 +109,18 @@ export default function AddPhoto(){
       {/* Capture photo button */}
       <button onClick={capturePhoto}>Capture Photo</button>
 
+      {/* Upload from device */}
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          id="fileInput"
+          onChange={handleFileUpload}
+        />
+
+      <button onClick={() => document.getElementById("fileInput").click()}>
+      Upload from Device
+      </button>
       {/* Show preview of captured image */}
       {photo && (
         <img src={photo} alt="Captured" className="photo-preview" />
