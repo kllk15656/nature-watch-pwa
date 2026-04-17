@@ -1,34 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-// Dexie function to load the base64 image
-import { GetPhotoSrc } from "./db";
+// Firestore imports
+import { doc, getDoc } from "firebase/firestore";
+import { db as firestoreDB } from "./firebase/firebaseConfig";
 
-//css
+// CSS
 import "./css/viewPhoto.css";
 
-
 export default function ViewPhoto() {
-
-  // Get the report ID from the URL
+  // Get report ID from URL
   const { id } = useParams();
 
-  // Used to go back to the previous page
+  // Navigation
   const navigate = useNavigate();
 
-  // Load the base64 image from Dexie
-  const imgSrc = GetPhotoSrc(id);
+  // Store the photo URL from Firestore
+  const [photoUrl, setPhotoUrl] = useState(null);
+
+  // Load the photo URL from Firestore
+  useEffect(() => {
+    async function loadPhoto() {
+      try {
+        // points to the report document
+        const ref = doc(firestoreDB, "reports", id);
+        //get the document data
+        const snapshot = await getDoc(ref);
+        // if exist get the url data
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          setPhotoUrl(data.photoUrl || null);
+        }
+        //log errors
+      } catch (error) {
+        console.error("Error loading photo:", error);
+      }
+    }
+    // run loadPhone when id changes
+    loadPhoto();
+  }, [id]);
 
   return (
     <div className="viewPhoto-container">
-
       <h1>Photo</h1>
 
-      {/* If a photo exists, show it */}
-      {imgSrc ? (
-        <img 
-          src={imgSrc} 
-          alt="Report" 
+      {/* If a photo URL exists, show it */}
+      {photoUrl ? (
+        <img
+          src={photoUrl}
+          alt="Report"
           className="viewPhoto-image"
         />
       ) : (
@@ -39,7 +59,6 @@ export default function ViewPhoto() {
       <button onClick={() => navigate(-1)} className="back-btn">
         Back
       </button>
-
     </div>
   );
 }

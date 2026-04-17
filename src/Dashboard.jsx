@@ -1,50 +1,50 @@
-// Import React so we can build components
+// Import react 
 import React, { useEffect, useState } from "react";
 
-// Import Firestore functions for real-time updates
+// import Firestore functions for real-time updates
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 
-// Import Firestore database 
+// import Firestore database 
 import { db } from "./firebase/firebaseConfig.js";
 
-// Import CSS for styling this dashboard
+// import CSS for styling this dashboard
 import "./css/dashboard.css";
 
-// Import icons (React Web uses normal <img>, not Image from RN)
+// import icons 
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
 import ProfileIcon from "./assets/profile.png"; 
 
-// Import navigation from React Router
+// import navigation from React Router
 import { useNavigate } from "react-router-dom";
 
-// Export the Dashboard component so App.js can load it
+
 export default function Dashboard() {
 
-  // React Router navigation hook
+  // react Router navigation hook
   const navigate = useNavigate();
 
-  // State to store Firestore reports
+  // state to store Firestore reports
   const [reports, setReports] = useState([]);
 
-  // Load Firestore reports in real-time
+  // load Firestore reports in real-time
   useEffect(() => {
-    // Create a Firestore query sorted by newest first
+    // create a Firestore query sorted by newest first
     const q = query(collection(db, "reports"), orderBy("createdAt", "desc"));
 
-    // Listen for live updates from Firestore
+    // listen for live updates from Firestore
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      // Convert Firestore docs into plain JS objects
+      // convert Firestore docs into plain JS objects
       const data = snapshot.docs.map((doc) => ({
         id: doc.id,       // include document ID
         ...doc.data(),    // include all fields
       }));
 
-      // Save updated list into state
+      // save updated list into state
       setReports(data);
     });
 
-    // Cleanup listener when component unmounts
+    // cleanup listener when component unmounts
     return unsubscribe;
   }, []);
 

@@ -54,6 +54,7 @@ export default function CreateReport() {
           lng: position.coords.longitude,
         });
       },
+      //location fails
       () => alert("Unable to retrieve your location.")
     );
   }
@@ -76,11 +77,12 @@ export default function CreateReport() {
         description,
         location,
         username,
-        hasPhoto: false, // update later on
+        hasPhoto: false, 
+        photoUrl: null, 
         createdAt: serverTimestamp(),
       });
 
-      const newId = docRef.id; // <-- IMPORTANT: get the Firestore ID
+      const newId = docRef.id; 
 
       alert("Report saved! Now add a photo.");
 

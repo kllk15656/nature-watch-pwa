@@ -1,4 +1,4 @@
-//Import React and hooks
+//import React and hooks
 import React, {useEffect, useState} from "react";
 // Firestore imports
 import { collection, getDocs } from "firebase/firestore";

@@ -1,109 +1,90 @@
-// Import React so we can build components
+// react for building the component
 import React from "react";
 
-// Import navigation tools from React Router
+// navigation tools
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-// Import Firestore delete functions
+// firestore delete functions
 import { deleteDoc, doc } from "firebase/firestore";
 
-// Import our Firestore database instance
+// firestore database
 import { db } from "./firebase/firebaseConfig";
 
-// Import CSS for styling this screen
+//css
 import "./css/viewReport.css";
 
-// Import icons for UI
+// icons
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
-import ProfileIcon from "./assets/profile.png"; 
+import ProfileIcon from "./assets/profile.png";
 
 
-// VIEW REPORT COMPONENT
+
 export default function ViewReport() {
 
-  // React Router navigation hook for moving between screens
-  const navigate = useNavigate();
+  const navigate = useNavigate();     //  page navigation
+  const { id } = useParams();         // report ID from URL
 
-  // Extract the dynamic URL parameter (report ID)
-  const { id } = useParams();
+  const routeLocation = useLocation(); // data passed from previous page
+  const report = routeLocation.state || {}; // report object
 
-  // Retrieve additional data passed through navigation state
-  const routeLocation = useLocation();   
-
-  // Extract the report object (title, category, etc.)
-  const report = routeLocation.state || {};   
-
-  // Destructure all fields from the report object
+  // pull fields from the report
   const {
     title,
     category,
     description,
-    location,    
+    location,
     createdAt,
-    username
+    username,
+    photoUrl,   // photo URL from Firebase Storage
+    hasPhoto
   } = report;
 
 
-  // DELETE REPORT FUNCTION
-  
+  // DELETE REPORT
   async function handleDelete() {
-    // If no ID was passed, stop and warn the user
     if (!id) {
       alert("Missing report ID");
-      return;
+      return; // stops if no id
     }
 
     try {
-      // Build a reference to the Firestore document
-      const ref = doc(db, "reports", id);
-
-      // Delete the document from Firestore
-      await deleteDoc(ref);
-
-      // Notify the user
+      //create a reference to the report document
+      const ref = doc(db, "reports", id); 
+      //delete the document
+      await deleteDoc(ref);              
+      // tells users it works
       alert("Report deleted");
-
-      // Navigate back to the dashboard
-      navigate("/dashboard");
+      // take back to dashboard
+      navigate("/dashboard");             
 
     } catch (error) {
-      // Log the error for debugging
+      // log a error for debugging
       console.error(error);
-
-      // Show an error message
       alert("Error deleting report");
     }
   }
 
-
-  // EDIT REPORT FUNCTION
+//edit function
   function handleEdit() {
-    // Navigate to the edit screen and pass the report data forward
-    navigate(`/edit-report/${id}`, { state: report });
+    // goes to the edit page for this report and passes report data 
+    navigate(`/edit-report/${id}`, { state: report }); 
   }
 
-  // RENDER UI
+
   return (
-    // Root container for the entire screen
     <div className="view-container">
 
-      {/* HEADER BAR */}
+      {/* HEADER */}
       <div className="headerBar">
-
-        {/* Back button to return to dashboard */}
         <img
           src={BackIcon}
           className="backIcon"
           alt="back"
           onClick={() => navigate("/dashboard")}
         />
-
-        {/* Screen title */}
         <h1 className="headerTitle">Report Details</h1>
-
-        {/* Spacer to balance layout */}
         <div style={{ width: 30 }}></div>
       </div>
 
@@ -111,43 +92,52 @@ export default function ViewReport() {
       {/* MAIN CONTENT */}
       <div className="content">
 
-        {/* Title field */}
         <h3 className="label">Title</h3>
         <p className="value">{title}</p>
 
-        {/* Category field */}
         <h3 className="label">Category</h3>
         <p className="value">{category}</p>
 
-        {/* Report created bt */}
         <h3 className="label">Report Owner</h3>
         <p className="value">{username || "Unknown"}</p>
 
-        {/* Date field */}
         <h3 className="label">Date</h3>
         <p className="value">
-        {createdAt?.seconds? new Date(createdAt.seconds * 1000).toLocaleString()
-        : "Unknown"}</p>
+          {createdAt?.seconds
+            ? new Date(createdAt.seconds * 1000).toLocaleString()
+            : "Unknown"}
+        </p>
 
-        {/* Description field */}
         <h3 className="label">Description</h3>
         <p className="value">{description}</p>
 
-        {/* Photo preview */}
+
+        {/* PHOTO SECTION */}
         <h3 className="label">Photo</h3>
-        {report.hasPhoto ? (
-          <button 
+
+        {photoUrl ? (
+          <>
+            {/* Small preview */}
+            <img 
+              src={photoUrl}
+              alt="Report"
+              className="thumbnailPhoto"
+            />
+
+            {/* Button to open full photo */}
+            <button 
               className="viewPhotoButton"
               onClick={() => navigate(`/view-photo/${id}`)}
             >
-            View Photo
-          </button>
+              View Full Photo
+            </button>
+          </>
         ) : (
-            <p className="value">No photo added yet.</p>
+          <p className="value">No photo added yet.</p>
         )}
 
 
-        {/* Location field */}
+        {/* LOCATION */}
         <h3 className="label">Location</h3>
         <p className="value">
           {location?.lat && location?.lng
@@ -156,32 +146,26 @@ export default function ViewReport() {
         </p>
 
 
-        {/* ACTION BUTTONS */}
+        {/* EDIT + DELETE BUTTONS */}
         <div className="buttonRow">
-
-          {/* Edit button */}
           <button className="editButton" onClick={handleEdit}>
             Edit
           </button>
 
-          {/* Delete button */}
           <button className="deleteButton" onClick={handleDelete}>
             Delete
           </button>
-
         </div>
       </div>
 
 
-      {/* BOTTOM NAVIGATION BAR */}
+      {/* BOTTOM NAV BAR */}
       <div className="bottomNav">
-
-        {/* Home button */}
         <img
           src={HomeIcon}
           className="navIcon"
           alt="home"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/dashboard")}
         />
         <img
           src={ProfileIcon}
@@ -189,17 +173,12 @@ export default function ViewReport() {
           alt="profile"
           onClick={() => navigate("/profile")}
         />
-
-        
-
-        {/* Settings button */}
         <img
           src={SettingsIcon}
           className="navIcon"
           alt="settings"
           onClick={() => navigate("/settings")}
         />
-
       </div>
     </div>
   );

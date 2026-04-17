@@ -1,6 +1,11 @@
+
+// react
 import React from "react";
+//css
 import "./css/home.css";
+//bird image
 import bird from "./assets/bird.png";
+//navigation
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

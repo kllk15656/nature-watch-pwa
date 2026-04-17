@@ -1,17 +1,17 @@
-//Import React and use state
+//import React and use state
 import React, { useState } from "react";
 
 //import navigation
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-//FireStore update function
+//fireStore update function
 import {doc, updateDoc} from "firebase/firestore";
 import {db} from "./firebase/firebaseConfig";
 
-// css by CreateReport
+// css 
 import "./css/createReport.css";
 
-//Import icons for  UI
+//icons 
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
 import SettingsIcon from "./assets/settings.png";
@@ -37,27 +37,30 @@ export default function EditReport() {
   // Save updated report
   async function handleUpdate(e) {
     e.preventDefault();
-
+        // basic validation
     if (!title.trim()) return alert("Title is required.");
     if (!category) return alert("Select a category");
     if (!description.trim()) return alert("Description is required.");
 
     try {
+      // points to the existing firestore document
       const ref = doc(db, "reports", id);
-
+      //updates the fields to firestore
       await updateDoc(ref, {
         title,
         category,
         description,
         location,
         username,
+       
       });
 
       alert("Report updated!");
 
       // Navigate back to ViewReport with updated data
       navigate(`/view-report/${id}`, {
-        state: { ...report, title, category, description, username },
+        state: { ...report, title, category, description, username, photoUrl: report.photoUrl,
+         hasPhoto: report.hasPhoto, },
       });
 
     } catch (error) {

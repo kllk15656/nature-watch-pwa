@@ -1,36 +1,36 @@
-// Import React and hooks
+// import React and hooks
 import React, { useEffect, useState } from "react";
 
-// Import navigation
+// import navigation
 import { useNavigate } from "react-router-dom";
 
-// Import Firestore (for My Reports later)
+// import Firestore 
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "./firebase/firebaseConfig";
 
-// Import Dexie (for profile picture later)
+// import Dexie 
 import { db as dexieDB } from "./db";
 
-// CSS
+// css
 import "./css/profile.css";
 
-// Icons
+// icons
 import BackIcon from "./assets/back.png";
 import HomeIcon from "./assets/home.png";
 import ProfileIcon from "./assets/profile.png";
 import SettingsIcon from "./assets/settings.png";
 
 export default function Profile() {
-  // Navigation hook
+  // navigation hook
   const navigate = useNavigate();
 
-  // Username from localStorage
+  // username from localStorage
   const [username, setUsername] = useState("");
 
-  // Placeholder for future profile picture
+  // placeholder for future profile picture
   const [profilePhoto, setProfilePhoto] = useState(null);
 
-  // My Reports (we will fill this in next step)
+  // my Reports (we will fill this in next step)
   const [myReports, setMyReports] = useState([]);
 
   const handleProfileUpload = async (e) => {
@@ -130,13 +130,13 @@ export default function Profile() {
         <label htmlFor="profileUpload" className="uploadButton">
         Upload Profile Photo</label>
         <input
-            id="profileUpload"
-            type="file"
-            accept="image/*"
-            capture="environment"
-            onChange={handleProfileUpload}
-            className="profile-upload-input"
-          />
+        id="profileUpload"
+        type="file"
+        accept="image/*"
+        onChange={handleProfileUpload}
+        className="profile-upload-input"
+        />
+
           {profilePhoto && (
             <button className="removePhotoButton" onClick={handleRemovePhoto}>
               Remove Photo

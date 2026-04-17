@@ -67,6 +67,16 @@
   background-color: #ddd;
   
 }
+.thumbnailPhoto {
+  width: 120px;        /* small preview */
+  height: 120px;       /* square thumbnail */
+  object-fit: cover;   /* crop nicely */
+  border-radius: 8px;  /* optional rounded corners */
+  display: block;
+   margin: 10px auto;      /* spacing */
+}
+
+
 
 
 

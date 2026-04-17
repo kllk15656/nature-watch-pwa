@@ -1,139 +1,176 @@
-//import React and useState for storing the captured image
-import React,{useState, useRef} from "react";
+// React 
+import React, { useState, useRef } from "react";
 
-//update Firestore function
-import {doc,updateDoc} from "firebase/firestore";
-import {db as firestoreDB} from "./firebase/firebaseConfig";
+// firestore update
+import { doc, updateDoc } from "firebase/firestore";
+import { db as firestoreDB } from "./firebase/firebaseConfig";
 
-// Dexie function to save the photo locally
-import {addPhoto} from "./db";
+// firebase Storage
+import { storage } from "./firebase/firebaseConfig";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-//css
+// Dexie offline copy
+import { addPhoto } from "./db";
+
+// css
 import "./css/addPhoto.css";
+// router
 import { useNavigate, useParams } from "react-router-dom";
 
-export default function AddPhoto(){
+export default function AddPhoto() {
 
-    // Get the report ID from URL
-    const{id} = useParams();
+  const { id } = useParams();        // report ID from URL
+  const navigate = useNavigate();    // navigation
 
-    // used to navigate = back after saving
-    const navigate = useNavigate();
+  const [photo, setPhoto] = useState(null); // base64 image
 
-    //Store the captured base64 image
-    const [photo, setPhoto] =useState(null);
+  const videoRef = useRef(null);     // webcam video
+  const canvasRef = useRef(null);    // hidden canvas
 
-    //Webcam
-    const videoRef = useRef(null);
 
-    //hidden canvas used to capture image
-    const canvasRef =useRef(null);
-
-    // start the web camera 
-    async function startCamera(){
-        try{
-            const stream =await navigator.mediaDevices.getUserMedia({ video:true });
-            videoRef.current.srcObject = stream;
-            videoRef.current.play();
-        } catch (error){
-            alert("Camera access denied");
-            console.error(error);
-        }    
-    }
-
-    // capture a photo from webcam
-    function capturePhoto(){
-        const video = videoRef.current;
-        const canvas = canvasRef.current;
-
-        //set canvas sizes to match video
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-
-        // Draw the current video frame
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(video,0,0);
-
-        // convert canvas to base64 image
-        const imgData = canvas.toDataURL("image/jpeg",0.8);
-
-        // Save base64 image in state
-        setPhoto(imgData);
-
-    }
-    // upload a photo from device
-      function handleFileUpload(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setPhoto(reader.result); // base64 string
-          };
-        reader.readAsDataURL(file);
-      }
-
-    async function handleSave() {
-        if (!photo) return alert("Take a photo first");
-        try {
-      // Save base64 image to Dexie
-        await addPhoto(id, photo);
-
-      // Update Firestore to mark that this report has a photo
-        const ref = doc(firestoreDB, "reports", id);
-        await updateDoc(ref, { hasPhoto: true });
-
-        alert("Photo saved!");
-
-      // Navigate back to the report page
-        navigate(`/view-report/${id}`);
-
-        } catch (error) {
-            console.error(error);
-            alert("Error saving photo");
+  // start webcam
+  async function startCamera() {
+    try {
+      //ask the broswers for permission 
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      // webcam streams to the video element
+      videoRef.current.srcObject = stream;
+      //start playing live camera
+      videoRef.current.play();
+    } catch (error) {
+      //if the users blocks camera or an error happens
+      alert("Camera access denied");
+      console.error(error);
     }
   }
+
+
+  // capture photo from webcam
+  function capturePhoto() {
+    //gets the video element showing the webcam
+    const video = videoRef.current;
+    //get the hidden canva to take the snap shot
+    const canvas = canvasRef.current;
+
+    // the canvas size of the webcam
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    
+    //gets a draeeing tool for the canva
+    const ctx = canvas.getContext("2d");
+    // draw webcam frame onto the canva
+
+    ctx.drawImage(video, 0, 0);
+    //convert the canva into a base64
+    const imgData = canvas.toDataURL("image/jpeg", 0.8);
+    //store the base64 image in state
+    setPhoto(imgData);
+  }
+
+
+  // upload from device
+  function handleFileUpload(e) {
+    //get the first select file
+    const file = e.target.files[0];
+    // stop if no file is selected
+    if (!file) return;
+
+    // create a file reader to convert the image into base64
+    const reader = new FileReader();
+    // when the file fully read, save the base64 image
+    reader.onloadend = () => setPhoto(reader.result);
+    //read the file as base64 data url
+    reader.readAsDataURL(file);
+  }
+
+
+  // convert base64 → Blob
+  function base64ToBlob(base64) {
+    //decode the base64 into binary text
+    const byteString = atob(base64.split(",")[1]);
+    //create a buffer the same length as the binary data
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    // create a typed array to hold each byte
+    const intArray = new Uint8Array(arrayBuffer);
+    
+    //copy each byte intot the typed array
+    for (let i = 0; i < byteString.length; i++) {
+      intArray[i] = byteString.charCodeAt(i);
+    }
+    //return blob containg the image data as jepg
+    return new Blob([intArray], { type: "image/jpeg" });
+  }
+
+
+  // save photo to Firebase Storage and Firestore
+  async function handleSave() {
+    //stops if no phot has been taken or uploaded
+    if (!photo) return alert("Take or upload a photo first");
+
+    try {
+      // converts base64 image into a blob
+      const blob = base64ToBlob(photo);   
+      //creates a storage path            
+      const storageRef = ref(storage, `images/${id}.jpg`); 
+      //upload the blob to firestorage
+      await uploadBytes(storageRef, blob);
+      // get the public download URL for uploaded image            
+      const downloadURL = await getDownloadURL(storageRef); 
+
+      // update the firestore report with the photo url
+      const refDoc = doc(firestoreDB, "reports", id); // firestore doc
+      await updateDoc(refDoc, {
+        hasPhoto: true,
+        photoUrl: downloadURL
+      });
+      // save a local copy in dexie if offline
+      await addPhoto(id, photo);  
+      // notify user
+      alert("Photo uploaded successfully!");
+      // go back to the dashboard
+      navigate("/dashboard");  
+
+    } catch (error) {
+      // handles any error
+      console.error(error);
+      alert("Error uploading photo");
+    }
+  }
+
+
   return (
     <div className="addPhoto-container">
-
       <h1>Add Photo</h1>
 
       {/* Webcam preview */}
       <video ref={videoRef} className="camera-preview"></video>
 
-      {/* Hidden canvas used to capture the image */}
+      {/* Hidden canvas */}
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
 
-      {/* Start camera button */}
+      {/* Buttons */}
       <button onClick={startCamera}>Start Camera</button>
-
-      {/* Capture photo button */}
       <button onClick={capturePhoto}>Capture Photo</button>
 
       {/* Upload from device */}
-        <input
-          type="file"
-          accept="image/*"
-          style={{ display: "none" }}
-          id="fileInput"
-          onChange={handleFileUpload}
-        />
-
+      <input
+        type="file"
+        accept="image/*"
+        id="fileInput"
+        style={{ display: "none" }}
+        onChange={handleFileUpload}
+      />
       <button onClick={() => document.getElementById("fileInput").click()}>
-      Upload from Device
+        Upload from Device
       </button>
-      {/* Show preview of captured image */}
-      {photo && (
-        <img src={photo} alt="Captured" className="photo-preview" />
-      )}
 
-      {/* Save photo button */}
+      {/* Preview */}
+      {photo && <img src={photo} alt="Captured" className="photo-preview" />}
+
+      {/* Save */}
       <button onClick={handleSave} className="save-btn">
         Save Photo
       </button>
-
     </div>
   );
-}  
-
-
-
+}

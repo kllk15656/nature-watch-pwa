@@ -1,36 +1,37 @@
-import { initializeApp } from "firebase/app"; // Connects your React Native app to Firebase
+// Connect to Firebase
+import { initializeApp } from "firebase/app";
 
-//  Firestore offline mode 
+// Firestore with offline support
 import {
   initializeFirestore,
   persistentLocalCache,
   persistentMultipleTabManager
 } from "firebase/firestore";
 
-import { getStorage } from "firebase/storage"; // Storage = where your wildlife photos will be uploaded
+// Firebase Storage for file uploads
+import { getStorage } from "firebase/storage";
 
 
-
+// Your Firebase project settings
 const firebaseConfig = {
-  apiKey: "AIzaSyD0FDAnJqJ5T8WsVA1Rbp57xPLKpNEP4zo", // public key  that communicates with the firebase services
-  authDomain: "naturewatch-a5452.firebaseapp.com", // Firebase Authorcation
-  projectId: "naturewatch-a5452", // Project name
-  storageBucket: "naturewatch-a5452.appspot.com",// store images
-  messagingSenderId: "1049620952770", //send notifications
-  appId: "1:1049620952770:web:cb585465c909ecdc3f2d5b" //identifies the app inside firebase
+  apiKey: "AIzaSyD0FDAnJqJ5T8WsVA1Rbp57xPLKpNEP4zo", // Public API key
+  authDomain: "naturewatch-a5452.firebaseapp.com", // Auth domain
+  projectId: "naturewatch-a5452", // Project ID
+  storageBucket: "naturewatch-a5452.firebasestorage.app", // Correct storage bucket
+  messagingSenderId: "1049620952770", // Messaging ID
+  appId: "1:1049620952770:web:cb585465c909ecdc3f2d5b" // App ID
 };
 
-const app = initializeApp(firebaseConfig); // connects React native to firebaseproject
 
+// Start Firebase
+export const app = initializeApp(firebaseConfig);
 
-
-// read/write widldlife reports in firestore and supports offline
+// Start Firestore with offline caching
 export const db = initializeFirestore(app, {
   localCache: persistentLocalCache({
-    tabManager: persistentMultipleTabManager() // allows offline cache across tabs
+    tabManager: persistentMultipleTabManager() // Share cache across tabs
   })
 });
 
-
-// uploads and download wildlife photos
-export const storage = getStorage(app); // (your comment kept exactly the same)
+// Start Firebase Storage
+export const storage = getStorage(app);
