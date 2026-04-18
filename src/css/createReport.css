@@ -82,8 +82,7 @@ textarea.inputField {
   box-shadow: 0 8px 9px #928984 ;
 }
 .saveButton {
-  background-color: #2E7D32 !important;
-  padding: 12px 25px;
+  background: #2196f3;  padding: 12px 25px;
   border-radius: 10px;
   border: none;
   color: white;

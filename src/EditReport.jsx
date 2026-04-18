@@ -5,8 +5,11 @@ import React, { useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 //fireStore update function
-import {doc, updateDoc} from "firebase/firestore";
-import {db} from "./firebase/firebaseConfig";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
+
+// firebase Storage imports for uploading & deleting images
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 // css 
 import "./css/createReport.css";
@@ -27,40 +30,97 @@ export default function EditReport() {
   const report = routeLocation.state || {};
   const username = report.username || "";
   
-
   // Pre-fill form fields
   const [title, setTitle] = useState(report.title || "");
   const [category, setCategory] = useState(report.category || "");
   const [description, setDescription] = useState(report.description || "");
-  const [location] = useState(report.location || { lat: null, lng: null });
-  
+
+  // Make location editable
+  const [location, setLocation] = useState(report.location || { lat: null, lng: null });
+
+  // Store the new image file selected by the user
+  const [newPhoto, setNewPhoto] = useState(null);
+
+  // Get updated GPS location
+  async function updateLocation() {
+    if (!navigator.geolocation) {
+      return alert("Geolocation not supported.");
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLocation({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+        alert("Location updated!");
+      },
+      () => alert("Unable to retrieve location.")
+    );
+  }
+
   // Save updated report
   async function handleUpdate(e) {
     e.preventDefault();
-        // basic validation
+
+    // basic validation
     if (!title.trim()) return alert("Title is required.");
     if (!category) return alert("Select a category");
     if (!description.trim()) return alert("Description is required.");
 
     try {
-      // points to the existing firestore document
-      const ref = doc(db, "reports", id);
-      //updates the fields to firestore
-      await updateDoc(ref, {
+      const refDoc = doc(db, "reports", id);
+
+      // Start with the existing photo URL
+      let updatedPhotoUrl = report.photoUrl;
+
+      // If the user selected a new image, upload it
+      if (newPhoto) {
+        const storage = getStorage();
+
+        // Reference to the old image (if it exists)
+        const oldImageRef = report.photoUrl ? ref(storage, report.photoUrl) : null;
+
+        // Delete old image from Firebase Storage
+        if (oldImageRef) {
+          await deleteObject(oldImageRef).catch(() => {
+            console.warn("Old image could not be deleted (may not exist).");
+          });
+        }
+
+        // Upload new image to Firebase Storage
+        const newImageRef = ref(storage, `reportImages/${id}`);
+        await uploadBytes(newImageRef, newPhoto);
+
+        // Get new download URL
+        updatedPhotoUrl = await getDownloadURL(newImageRef);
+      }
+
+      // Update Firestore
+      await updateDoc(refDoc, {
         title,
         category,
         description,
         location,
         username,
-       
+        photoUrl: updatedPhotoUrl,
+        hasPhoto: true,
       });
 
       alert("Report updated!");
 
       // Navigate back to ViewReport with updated data
       navigate(`/view-report/${id}`, {
-        state: { ...report, title, category, description, username, photoUrl: report.photoUrl,
-         hasPhoto: report.hasPhoto, },
+        state: {
+          ...report,
+          title,
+          category,
+          description,
+          username,
+          location,
+          photoUrl: updatedPhotoUrl,
+          hasPhoto: true,
+        },
       });
 
     } catch (error) {
@@ -70,27 +130,19 @@ export default function EditReport() {
   }
 
   return (
-    // Root container for the entire screen
     <div className="view-container">
 
       {/* HEADER BAR */}
       <div className="headerBar">
-
-        {/* Back button */}
         <img
           src={BackIcon}
           className="backIcon"
           alt="back"
           onClick={() => navigate(`/view-report/${id}`, { state: report })}
         />
-
-        {/* Screen title */}
         <h1 className="headerTitle">Edit Report</h1>
-
-        {/* Spacer */}
         <div style={{ width: 30 }}></div>
       </div>
-
 
       {/* MAIN CONTENT */}
       <div className="content">
@@ -128,13 +180,26 @@ export default function EditReport() {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        {/* Location field (read-only) */}
+        {/* Update Photo */}
+        <h3 className="label">Update Photo</h3>
+        <input
+          type="file"
+          accept="image/*"
+          className="inputField"
+          onChange={(e) => setNewPhoto(e.target.files[0])}
+        />
+
+        {/* Location */}
         <h3 className="label">Location</h3>
         <p className="value">
           {location?.lat && location?.lng
             ? `${Number(location.lat).toFixed(5)}, ${Number(location.lng).toFixed(5)}`
             : "No location recorded"}
         </p>
+
+        <button className="saveButton" onClick={updateLocation}>
+          Update Location
+        </button>
 
         {/* SAVE CHANGES BUTTON */}
         <button className="saveButton" onClick={handleUpdate}>
@@ -143,10 +208,8 @@ export default function EditReport() {
 
       </div>
 
-
       {/* BOTTOM NAVIGATION BAR */}
       <div className="bottomNav">
-
         <img
           src={HomeIcon}
           className="navIcon"
@@ -159,16 +222,14 @@ export default function EditReport() {
           alt="profile"
           onClick={() => navigate("/profile")}
         />
-        
-
         <img
           src={SettingsIcon}
           className="navIcon"
           alt="settings"
           onClick={() => navigate("/settings")}
         />
-
       </div>
+
     </div>
   );
 }
